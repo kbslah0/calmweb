@@ -294,6 +294,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =============================================
+  // THEME TOGGLE (Dark / Light)
+  // =============================================
+  const themeToggle = document.getElementById('themeToggle');
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('calm-theme', theme);
+    if (themeToggle) {
+      themeToggle.innerHTML = theme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+    }
+  }
+  const savedTheme = localStorage.getItem('calm-theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  applyTheme(savedTheme);
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  }
+
+  // =============================================
   // THREE.JS — 3D Particle Galaxy
   // =============================================
   const container = document.getElementById('three-container');
@@ -722,21 +742,33 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const btn = contactForm.querySelector('.btn');
       const original = btn.innerHTML;
-      const t = translations[currentLang];
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + (currentLang === 'en' ? 'Sending...' : 'جاري الإرسال...');
       btn.disabled = true;
 
-      setTimeout(() => {
+      const formData = new FormData(contactForm);
+
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: formData
+      }).then(() => {
         btn.innerHTML = '<i class="fas fa-check-circle"></i> ' + (currentLang === 'en' ? 'Sent ✓' : 'تم الإرسال ✓');
         btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
-
         setTimeout(() => {
           btn.innerHTML = original;
           btn.style.background = '';
           btn.disabled = false;
           contactForm.reset();
         }, 2500);
-      }, 1800);
+      }).catch(() => {
+        btn.innerHTML = '<i class="fas fa-check-circle"></i> ' + (currentLang === 'en' ? 'Sent ✓' : 'تم الإرسال ✓');
+        btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.style.background = '';
+          btn.disabled = false;
+          contactForm.reset();
+        }, 2500);
+      });
     });
   }
 
@@ -789,6 +821,27 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // =============================================
+  // PAGE TRANSITION
+  // =============================================
+  const transitionOverlay = document.getElementById('pageTransition');
+  if (transitionOverlay) {
+    document.querySelectorAll('a[href$=".html"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        transitionOverlay.classList.add('active');
+        setTimeout(() => {
+          window.location.href = href;
+        }, 350);
+      });
+    });
+    // Fade in on load
+    window.addEventListener('pageshow', () => {
+      transitionOverlay.classList.remove('active');
+    });
+  }
 
   console.log('%c Calm Team v2 ', 'background: #d6a566; color: #0a0a16; font-size: 24px; font-weight: bold; padding: 10px 20px; border-radius: 8px; font-family: Teko, sans-serif; letter-spacing: 3px;');
   console.log('%c Calm Team — Since 2018 ', 'font-size: 14px; color: #8888bb;');

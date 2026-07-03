@@ -10,12 +10,24 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" type="image/png" href="assets/logo.png" />
+  <meta property="og:title" content="Calm Team — فريق هدوء" />
+  <meta property="og:description" content="Calm Team Esport & Community — فريق هدوء للرياضات الإلكترونية منذ 2018" />
+  <meta property="og:image" content="https://kbslah0.github.io/calmweb/assets/logo.png" />
+  <meta property="og:url" content="https://kbslah0.github.io/calmweb" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Calm Team — فريق هدوء" />
+  <meta name="twitter:description" content="Calm Team Esport & Community — فريق هدوء للرياضات الإلكترونية منذ 2018" />
+  <meta name="twitter:image" content="https://kbslah0.github.io/calmweb/assets/logo.png" />
 </head>
 <body>
 
   <!-- Cursor -->
   <div class="cursor" id="cursor"></div>
   <div class="cursor-trail" id="cursorTrail"></div>
+
+  <!-- Page Transition Overlay -->
+  <div class="page-transition" id="pageTransition"></div>
 
   <!-- Scroll Progress -->
   <div class="scroll-progress" id="scrollProgress"></div>
@@ -53,6 +65,7 @@
         <li><a href="products.html" class="nav-link" data-i18n="nav_products">منتجاتنا</a></li>
         <li><a href="#contact" class="nav-link" data-i18n="nav_contact">اتصل بنا</a></li>
         <li><button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button></li>
+        <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button></li>
       </ul>
     </div>
   </nav>
@@ -153,7 +166,7 @@
         <div class="about-visual" data-reveal>
           <div class="about-3d-card">
             <div class="about-3d-inner" id="aboutTilt">
-              <img src="assets/logo.png" alt="Calm Team" class="about-3d-shield" />
+              <img src="assets/logo.png" alt="Calm Team" class="about-3d-shield" loading="lazy" />
               <div class="about-3d-year">2018</div>
               <div class="about-3d-text">Calm Team</div>
             </div>
@@ -650,7 +663,10 @@
             <a href="#" class="social-link" style="--sc: #9146ff;"><i class="fab fa-twitch"></i></a>
           </div>
         </div>
-        <form class="contact-form" id="contactForm" data-reveal>
+        <form class="contact-form" id="contactForm" data-reveal action="https://formsubmit.co/calmiraq@email.com" method="POST">
+          <input type="hidden" name="_next" value="https://kbslah0.github.io/calmweb" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="text" name="_honey" style="display:none" />
           <div class="form-group">
             <input type="text" placeholder="اسمك" required data-i18n-placeholder="form_name" />
             <i class="fas fa-user"></i>
@@ -678,7 +694,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <img src="assets/logo.png" alt="Calm Team" class="footer-logo" />
+          <img src="assets/logo.png" alt="Calm Team" class="footer-logo" loading="lazy" />
           <h3>Calm Team</h3>
           <p data-i18n="footer_desc">فريق هدوء — منذ 2018</p>
         </div>
@@ -727,7 +743,7 @@
   </button>
 
   <!-- Three.js (UMD build for file:// compatibility) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="js/main.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script defer src="js/main.js"></script>
 </body>
 </html>

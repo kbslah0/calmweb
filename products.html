@@ -10,6 +10,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" type="image/png" href="assets/logo.png" />
+  <meta property="og:title" content="منتجاتنا | Calm Team" />
+  <meta property="og:description" content="Calm Team Products - متجر فريق هدوء الرسمي" />
+  <meta property="og:image" content="https://kbslah0.github.io/calmweb/assets/logo.png" />
+  <meta property="og:url" content="https://kbslah0.github.io/calmweb/products.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
   <style>
     .products-page {
       min-height: 100vh;
@@ -201,6 +207,8 @@
 </head>
 <body>
 
+  <div class="page-transition" id="pageTransition"></div>
+
   <div class="cursor" id="cursor"></div>
   <div class="cursor-trail" id="cursorTrail"></div>
 
@@ -211,7 +219,7 @@
     </div>
 
     <div class="products-container">
-      <img src="assets/logo.png" alt="Calm Team" class="products-logo" />
+      <img src="assets/logo.png" alt="Calm Team" class="products-logo" loading="lazy" />
       <h1 class="products-title" data-text="قريبا">قريبا</h1>
       <div class="products-bar-wrap"><div class="products-bar-fill"></div></div>
       <p class="products-desc">
@@ -256,6 +264,20 @@
   } else if (cursor && cursorTrail) {
     cursor.style.display = 'none';
     cursorTrail.style.display = 'none';
+  }
+
+  // Page transition
+  const transOverlay = document.getElementById('pageTransition');
+  if (transOverlay) {
+    document.querySelectorAll('a[href$=".html"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        transOverlay.classList.add('active');
+        setTimeout(() => { window.location.href = href; }, 350);
+      });
+    });
+    window.addEventListener('pageshow', () => transOverlay.classList.remove('active'));
   }
 </script>
 </body>
