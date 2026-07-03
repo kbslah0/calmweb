@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calm Team | فريق هدوء</title>
+  <meta name="description" content="Calm Team Esport & Community - فريق هدوء للرياضات الإلكترونية منذ 2018" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+</head>
+<body>
+
+  <!-- Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <div class="loader-scene">
+      <img src="assets/logo.png" alt="Calm Team" class="loader-shield" />
+      <div class="loader-ring"></div>
+      <div class="loader-ring-2"></div>
+      <h2>Calm Team</h2>
+      <p data-i18n="loader_sub">Loading experience...</p>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <div class="logo-3d">
+          <img src="assets/logo.png" alt="Calm Team" class="logo-icon" />
+        </div>
+        <span class="logo-text">Calm<span>Team</span></span>
+      </a>
+      <div class="nav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+      </div>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#hero" class="nav-link active" data-i18n="nav_home">الرئيسية</a></li>
+        <li><a href="#about" class="nav-link" data-i18n="nav_about">عن الفريق</a></li>
+        <li><a href="#roster" class="nav-link" data-i18n="nav_roster">الفريق</a></li>
+        <li><a href="#community" class="nav-link" data-i18n="nav_community">المجتمع</a></li>
+        <li><a href="#stats" class="nav-link" data-i18n="nav_stats">الإحصائيات</a></li>
+        <li><a href="#timeline" class="nav-link" data-i18n="nav_timeline">المسيرة</a></li>
+        <li><a href="products.html" class="nav-link" data-i18n="nav_products">منتجاتنا</a></li>
+        <li><a href="#contact" class="nav-link" data-i18n="nav_contact">اتصل بنا</a></li>
+        <li><button class="lang-toggle" id="langToggle" aria-label="Toggle language">EN</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div id="three-container" class="three-container"></div>
+    <div class="hero-gradient"></div>
+
+    <div class="hero-floating">
+      <div class="float-shape s1"><i class="fas fa-trophy"></i></div>
+      <div class="float-shape s2"><i class="fas fa-gamepad"></i></div>
+      <div class="float-shape s3"><i class="fas fa-shield-halved"></i></div>
+      <div class="float-shape s4"><i class="fas fa-crown"></i></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge" data-split>— Since 2018 —</div>
+      <h1 class="hero-title">
+        <span class="title-line" data-split>Calm</span>
+        <span class="title-line gold" data-split>Team</span>
+      </h1>
+      <div class="hero-subtitle" data-split data-i18n="hero_subtitle">فريق هدوء</div>
+      <p class="hero-desc" data-split>
+        <span data-i18n="hero_desc">رياضة إلكترونية • مجتمع • شغف</span><br />
+        <span class="typewriter" id="typewriter"></span>
+      </p>
+      <div class="hero-actions">
+        <a href="#about" class="btn btn-primary magnetic">
+          <span data-i18n="hero_btn_about">اكتشف رحلتنا</span>
+          <i class="fas fa-arrow-left"></i>
+        </a>
+        <a href="#community" class="btn btn-outline magnetic">
+          <i class="fab fa-discord"></i>
+          <span data-i18n="hero_btn_community">انضم للمجتمع</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span data-i18n="hero_scroll">اسفل</span>
+      <div class="scroll-arrow"><i class="fas fa-chevron-down"></i></div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <section class="marquee-section">
+    <div class="marquee">
+      <div class="marquee-track">
+        <span>🏆 Calm Team</span>
+        <span>✦</span>
+        <span>🎮 Esport</span>
+        <span>✦</span>
+        <span><img src="assets/logo.png" alt="" class="marquee-logo" /> Since 2018</span>
+        <span>✦</span>
+        <span>🔥 Calm Community</span>
+        <span>✦</span>
+        <span>🏆 Calm Team</span>
+        <span>✦</span>
+        <span>🎮 Esport</span>
+        <span>✦</span>
+        <span><img src="assets/logo.png" alt="" class="marquee-logo" /> Since 2018</span>
+        <span>✦</span>
+        <span>🔥 Calm Community</span>
+        <span>✦</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-reveal data-i18n="about_tag">من نحن</span>
+        <h2 class="section-title" data-reveal data-i18n="about_title">قصة فريق هدوء</h2>
+        <div class="section-divider" data-reveal><span></span><i class="fas fa-shield-halved"></i><span></span></div>
+      </div>
+      <div class="about-grid">
+        <div class="about-text" data-reveal>
+          <p class="about-desc" data-i18n-html="about_desc_1">
+            <strong>Calm Team</strong> — فريق هدوء للرياضات الإلكترونية. تأسسنا عام <strong>2018</strong>
+            برؤية واضحة: أن نخلق مساحة آمنة ومحترفة لعشاق الألعاب، تجمع بين المنافسة الشريفة
+            والروح الإيجابية.
+          </p>
+          <p class="about-desc" data-i18n-html="about_desc_2">
+            نحن لسنا مجرد فريق — نحن <strong>عائلة</strong>. نؤمن بأن اللعب ليس فقط للفوز،
+            بل لبناء ذكريات وصداقات تدوم.
+          </p>
+          <div class="about-values">
+            <div class="value-item"><i class="fas fa-handshake"></i><span data-i18n="value_1">الاحترام</span></div>
+            <div class="value-item"><i class="fas fa-trophy"></i><span data-i18n="value_2">التميز</span></div>
+            <div class="value-item"><i class="fas fa-users"></i><span data-i18n="value_3">العائلة</span></div>
+            <div class="value-item"><i class="fas fa-heart"></i><span data-i18n="value_4">الشغف</span></div>
+            <div class="value-item"><i class="fas fa-bolt"></i><span data-i18n="value_5">الطاقة</span></div>
+            <div class="value-item"><i class="fas fa-hand-fist"></i><span data-i18n="value_6">العزيمة</span></div>
+          </div>
+        </div>
+        <div class="about-visual" data-reveal>
+          <div class="about-3d-card">
+            <div class="about-3d-inner" id="aboutTilt">
+              <img src="assets/logo.png" alt="Calm Team" class="about-3d-shield" />
+              <div class="about-3d-year">2018</div>
+              <div class="about-3d-text">Calm Team</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roster -->
+  <section class="section roster" id="roster">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-reveal data-i18n="roster_tag">فريقنا</span>
+        <h2 class="section-title" data-reveal data-i18n="roster_title">لاعبونا الأسطوريون</h2>
+        <div class="section-divider" data-reveal><span></span><i class="fas fa-gamepad"></i><span></span></div>
+      </div>
+      <div class="roster-grid">
+        <div class="player-card" data-reveal>
+          <div class="card-glow"></div>
+          <div class="card-bg-pattern"></div>
+          <div class="player-img" style="--avatar: 'D';">
+            <span class="player-avatar">D</span>
+            <div class="player-status online"></div>
+          </div>
+          <div class="player-info">
+            <h3>Dr.T</h3>
+            <span class="player-role">Captain / IGL</span>
+            <div class="player-stats-bar">
+              <div class="stat-bar" style="--w: 96%;"><span>Aim</span><span>96%</span></div>
+              <div class="stat-bar" style="--w: 92%;"><span>Leader</span><span>92%</span></div>
+            </div>
+            <div class="player-games">
+              <span>VALORANT</span><span>CS2</span>
+            </div>
+          </div>
+        </div>
+        <div class="player-card" data-reveal>
+          <div class="card-glow"></div>
+          <div class="card-bg-pattern"></div>
+          <div class="player-img" style="--avatar: 'O';">
+            <span class="player-avatar">O</span>
+            <div class="player-status online"></div>
+          </div>
+          <div class="player-info">
+            <h3>Omega</h3>
+            <span class="player-role">Entry Fragger</span>
+            <div class="player-stats-bar">
+              <div class="stat-bar" style="--w: 94%;"><span>Aim</span><span>94%</span></div>
+              <div class="stat-bar" style="--w: 88%;"><span>Agility</span><span>88%</span></div>
+            </div>
+            <div class="player-games">
+              <span>VALORANT</span><span>CS2</span>
+            </div>
+          </div>
+        </div>
+        <div class="player-card" data-reveal>
+          <div class="card-glow"></div>
+          <div class="card-bg-pattern"></div>
+          <div class="player-img" style="--avatar: 'S';">
+            <span class="player-avatar">S</span>
+            <div class="player-status online"></div>
+          </div>
+          <div class="player-info">
+            <h3>Side</h3>
+            <span class="player-role">Support</span>
+            <div class="player-stats-bar">
+              <div class="stat-bar" style="--w: 85%;"><span>Aim</span><span>85%</span></div>
+              <div class="stat-bar" style="--w: 95%;"><span>Support</span><span>95%</span></div>
+            </div>
+            <div class="player-games">
+              <span>VALORANT</span><span>R6</span>
+            </div>
+          </div>
+        </div>
+        <div class="player-card" data-reveal>
+          <div class="card-glow"></div>
+          <div class="card-bg-pattern"></div>
+          <div class="player-img" style="--avatar: 'E';">
+            <span class="player-avatar">E</span>
+            <div class="player-status online"></div>
+          </div>
+          <div class="player-info">
+            <h3>Esc</h3>
+            <span class="player-role">AWPer / Sniper</span>
+            <div class="player-stats-bar">
+              <div class="stat-bar" style="--w: 97%;"><span>Aim</span><span>97%</span></div>
+              <div class="stat-bar" style="--w: 76%;"><span>Team</span><span>76%</span></div>
+            </div>
+            <div class="player-games">
+              <span>CS2</span><span>VALORANT</span>
+            </div>
+          </div>
+        </div>
+        <div class="player-card" data-reveal>
+          <div class="card-glow"></div>
+          <div class="card-bg-pattern"></div>
+          <div class="player-img" style="--avatar: 'A';">
+            <span class="player-avatar">A</span>
+            <div class="player-status online"></div>
+          </div>
+          <div class="player-info">
+            <h3>Altikriti</h3>
+            <span class="player-role">Flex</span>
+            <div class="player-stats-bar">
+              <div class="stat-bar" style="--w: 91%;"><span>Aim</span><span>91%</span></div>
+              <div class="stat-bar" style="--w: 90%;"><span>Game IQ</span><span>90%</span></div>
+            </div>
+            <div class="player-games">
+              <span>VALORANT</span><span>CS2</span>
+            </div>
+          </div>
+        </div>
+        <div class="player-card" data-reveal>
+          <div class="card-glow"></div>
+          <div class="card-bg-pattern"></div>
+          <div class="player-img" style="--avatar: 'H';">
+            <span class="player-avatar">H</span>
+            <div class="player-status online"></div>
+          </div>
+          <div class="player-info">
+            <h3>Hotoo</h3>
+            <span class="player-role">Entry Fragger</span>
+            <div class="player-stats-bar">
+              <div class="stat-bar" style="--w: 93%;"><span>Aim</span><span>93%</span></div>
+              <div class="stat-bar" style="--w: 84%;"><span>Agility</span><span>84%</span></div>
+            </div>
+            <div class="player-games">
+              <span>VALORANT</span><span>CS2</span>
+            </div>
+          </div>
+        </div>
+        <div class="player-card" data-reveal>
+          <div class="card-glow"></div>
+          <div class="card-bg-pattern"></div>
+          <div class="player-img" style="--avatar: 'Ay';">
+            <span class="player-avatar">Ay</span>
+            <div class="player-status online"></div>
+          </div>
+          <div class="player-info">
+            <h3>AydinR1k</h3>
+            <span class="player-role">Support</span>
+            <div class="player-stats-bar">
+              <div class="stat-bar" style="--w: 87%;"><span>Aim</span><span>87%</span></div>
+              <div class="stat-bar" style="--w: 93%;"><span>Support</span><span>93%</span></div>
+            </div>
+            <div class="player-games">
+              <span>VALORANT</span><span>R6</span>
+            </div>
+          </div>
+        </div>
+        <div class="player-card" data-reveal>
+          <div class="card-glow"></div>
+          <div class="card-bg-pattern"></div>
+          <div class="player-img" style="--avatar: 'G';">
+            <span class="player-avatar">G</span>
+            <div class="player-status online"></div>
+          </div>
+          <div class="player-info">
+            <h3>G5o6d</h3>
+            <span class="player-role">Flex</span>
+            <div class="player-stats-bar">
+              <div class="stat-bar" style="--w: 89%;"><span>Aim</span><span>89%</span></div>
+              <div class="stat-bar" style="--w: 86%;"><span>Flex</span><span>86%</span></div>
+            </div>
+            <div class="player-games">
+              <span>VALORANT</span><span>CS2</span>
+            </div>
+          </div>
+        </div>
+        <div class="player-card" data-reveal>
+          <div class="card-glow"></div>
+          <div class="card-bg-pattern"></div>
+          <div class="player-img" style="--avatar: 'Ab';">
+            <span class="player-avatar">Ab</span>
+            <div class="player-status online"></div>
+          </div>
+          <div class="player-info">
+            <h3>Abo_almktab</h3>
+            <span class="player-role">Substitute</span>
+            <div class="player-stats-bar">
+              <div class="stat-bar" style="--w: 88%;"><span>Aim</span><span>88%</span></div>
+              <div class="stat-bar" style="--w: 90%;"><span>Flex</span><span>90%</span></div>
+            </div>
+            <div class="player-games">
+              <span>VALORANT</span><span>CS2</span>
+            </div>
+          </div>
+        </div>
+        <div class="player-card" data-reveal>
+          <div class="card-glow"></div>
+          <div class="card-bg-pattern"></div>
+          <div class="player-img" style="--avatar: 'J';">
+            <span class="player-avatar">J</span>
+            <div class="player-status online"></div>
+          </div>
+          <div class="player-info">
+            <h3>jnon77</h3>
+            <span class="player-role">Substitute</span>
+            <div class="player-stats-bar">
+              <div class="stat-bar" style="--w: 90%;"><span>Aim</span><span>90%</span></div>
+              <div class="stat-bar" style="--w: 82%;"><span>Team</span><span>82%</span></div>
+            </div>
+            <div class="player-games">
+              <span>VALORANT</span><span>CS2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community -->
+  <section class="section community" id="community">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-reveal data-i18n="community_tag">مجتمعنا</span>
+        <h2 class="section-title" data-reveal>Calm Community</h2>
+        <div class="section-divider" data-reveal><span></span><i class="fas fa-users"></i><span></span></div>
+      </div>
+      <div class="community-content">
+        <div class="community-text" data-reveal>
+          <p class="about-desc" data-i18n-html="community_desc">
+            مجتمع كالم هو أكثر من مجرد مجموعة لاعبين — إنه <strong>ملاذ</strong> لكل من يبحث عن
+            أجواء إيجابية ومحترفة في عالم الألعاب. نرحب بالجميع، من المحترفين إلى المبتدئين.
+          </p>
+          <div class="community-features">
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-headset"></i></div>
+              <div>
+                <h4 data-i18n="feature_1_title">سيرفر ديسكورد</h4>
+                <p data-i18n="feature_1_desc">مجتمع نابض، تنظيم بطولات، وفعاليات أسبوعية</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-calendar"></i></div>
+              <div>
+                <h4 data-i18n="feature_2_title">فعاليات أسبوعية</h4>
+                <p data-i18n="feature_2_desc">بطولات داخلية، ليالي ألعاب، وتحديات مستمرة</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
+              <div>
+                <h4 data-i18n="feature_3_title">تطوير المهارات</h4>
+                <p data-i18n="feature_3_desc">جلسات تدريبية ونصائح من لاعبي الفريق الأساسي</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-gift"></i></div>
+              <div>
+                <h4 data-i18n="feature_4_title">مكافآت وهدايا</h4>
+                <p data-i18n="feature_4_desc">جوائز للفائزين بالبطولات وأكثر الأعضاء نشاطًا</p>
+              </div>
+            </div>
+          </div>
+          <a href="https://discord.gg/Xp6svSBUH4" target="_blank" rel="noopener" class="btn btn-primary magnetic">
+            <i class="fab fa-discord"></i>
+            <span data-i18n="community_btn">انضم إلينا على ديسكورد</span>
+          </a>
+        </div>
+        <div class="community-visual" data-reveal>
+          <div class="discord-card" id="discordCard">
+            <div class="discord-header">
+              <i class="fab fa-discord"></i>
+              <span>Calm Community</span>
+              <span class="discord-online">● 42 online</span>
+            </div>
+            <div class="discord-body">
+              <div class="discord-msg">
+                <div class="msg-avatar" style="--ac: #d6a566;">A</div>
+                <div><strong>Calm_Admin</strong><p>مرحبًا بالجميع في مجتمع كالم! 🎮</p></div>
+              </div>
+              <div class="discord-msg">
+                <div class="msg-avatar" style="--ac: #5865f2;">M</div>
+                <div><strong>Member1</strong><p>فخور إني جزء من هالعائلة!</p></div>
+              </div>
+              <div class="discord-msg">
+                <div class="msg-avatar" style="--ac: #ed4245;">N</div>
+                <div><strong>Player_Neo</strong><p>بطولة اليوم كانت EPIC! 🔥</p></div>
+              </div>
+              <div class="discord-msg typing">
+                <div class="msg-avatar" style="--ac: #22c55e;">Z</div>
+                <div>
+                  <strong>Zero</strong>
+                  <div class="typing-dots"><span></span><span></span><span></span></div>
+                </div>
+              </div>
+            </div>
+            <div class="discord-footer">
+              <span><i class="fas fa-user"></i> 100+</span>
+              <span><i class="fas fa-comment"></i> نشيط</span>
+              <span><i class="fas fa-trophy"></i> 24/7</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="section stats-section" id="stats">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-reveal data-i18n="stats_tag">إحصائيات</span>
+        <h2 class="section-title" data-reveal data-i18n="stats_title">أرقامنا تتحدث</h2>
+        <div class="section-divider" data-reveal><span></span><i class="fas fa-chart-line"></i><span></span></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stats-card" data-reveal>
+          <svg class="stats-ring" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="85" class="ring-bg" />
+            <circle cx="100" cy="100" r="85" class="ring-fill" style="--offset: 534; --target: 534;" />
+          </svg>
+          <div class="stats-ring-text">
+            <span class="stats-number" data-target="2018">0</span>
+            <span class="stats-label" data-i18n="stats_label_1">تأسسنا</span>
+          </div>
+        </div>
+        <div class="stats-card" data-reveal>
+          <svg class="stats-ring" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="85" class="ring-bg" />
+            <circle cx="100" cy="100" r="85" class="ring-fill" style="--offset: 534; --target: 427;" />
+          </svg>
+          <div class="stats-ring-text">
+            <span class="stats-number" data-target="150">0</span>
+            <span class="stats-label" data-i18n="stats_label_2">عضو</span>
+          </div>
+        </div>
+        <div class="stats-card" data-reveal>
+          <svg class="stats-ring" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="85" class="ring-bg" />
+            <circle cx="100" cy="100" r="85" class="ring-fill" style="--offset: 534; --target: 267;" />
+          </svg>
+          <div class="stats-ring-text">
+            <span class="stats-number" data-target="25">0</span>
+            <span class="stats-label" data-i18n="stats_label_3">بطولة</span>
+          </div>
+        </div>
+        <div class="stats-card" data-reveal>
+          <svg class="stats-ring" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="85" class="ring-bg" />
+            <circle cx="100" cy="100" r="85" class="ring-fill" style="--offset: 534; --target: 374;" />
+          </svg>
+          <div class="stats-ring-text">
+            <span class="stats-number" data-target="10">0</span>
+            <span class="stats-label" data-i18n="stats_label_4">لقب</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="section timeline" id="timeline">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-reveal data-i18n="tl_tag">مسيرتنا</span>
+        <h2 class="section-title" data-reveal data-i18n="tl_title">محطاتنا المشرقة</h2>
+        <div class="section-divider" data-reveal><span></span><i class="fas fa-clock"></i><span></span></div>
+      </div>
+      <div class="timeline-grid">
+        <div class="tl-item" data-reveal>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-year">2018</div>
+            <h3 data-i18n="tl_1_title">التأسيس</h3>
+            <p data-i18n="tl_1_desc">انطلاق الفريق برؤية جديدة في عالم الرياضات الإلكترونية</p>
+          </div>
+        </div>
+        <div class="tl-item" data-reveal>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-year">2019</div>
+            <h3 data-i18n="tl_2_title">أول بطولة</h3>
+            <p data-i18n="tl_2_desc">المشاركة الأولى في بطولة محلية وتحقيق المركز الثالث</p>
+          </div>
+        </div>
+        <div class="tl-item" data-reveal>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-year">2020</div>
+            <h3 data-i18n="tl_3_title">توسع المجتمع</h3>
+            <p data-i18n="tl_3_desc">إطلاق مجتمع كالم ووصول العدد إلى 50 عضو</p>
+          </div>
+        </div>
+        <div class="tl-item" data-reveal>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-year">2021</div>
+            <h3 data-i18n="tl_4_title">أول لقب</h3>
+            <p data-i18n="tl_4_desc">الفوز بأول بطولة كبرى وتحقيق لقب البطولة</p>
+          </div>
+        </div>
+        <div class="tl-item" data-reveal>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-year">2022</div>
+            <h3 data-i18n="tl_5_title">الاحترافية</h3>
+            <p data-i18n="tl_5_desc">دخول الفريق في منافسات احترافية وتجهيز البنية التحتية</p>
+          </div>
+        </div>
+        <div class="tl-item" data-reveal>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-year">2023</div>
+            <h3 data-i18n="tl_6_title">ثلاثية الألقاب</h3>
+            <p data-i18n="tl_6_desc">الفوز بثلاث بطولات في موسم واحد — إنجاز تاريخي</p>
+          </div>
+        </div>
+        <div class="tl-item" data-reveal>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-year">2024</div>
+            <h3 data-i18n="tl_7_title">شراكات جديدة</h3>
+            <p data-i18n="tl_7_desc">عقد شراكات مع علامات تجارية ومنصات رياضية</p>
+          </div>
+        </div>
+        <div class="tl-item" data-reveal>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-year">2025</div>
+            <h3 data-i18n="tl_8_title">100+ عضو</h3>
+            <p data-i18n="tl_8_desc">مجتمعنا يتخطى 100 عضو وفريقنا في أقوى مستوياته</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-reveal data-i18n="testimonials_tag">شهادات</span>
+        <h2 class="section-title" data-reveal data-i18n="testimonials_title">ماذا يقولون عنا</h2>
+        <div class="section-divider" data-reveal><span></span><i class="fas fa-quote-right"></i><span></span></div>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card" data-reveal>
+          <div class="testimonial-quote">"</div>
+          <p data-i18n="testimonial_1">أفضل مجتمع ألعاب انضممت له. الأجواء رائعة والكل مرحب به.</p>
+          <div class="testimonial-author">
+            <div class="ta-avatar" style="--ac: #5865f2;">X</div>
+            <div>
+              <strong>X_Player</strong>
+              <span data-i18n="testimonial_1_date">عضو منذ 2020</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" data-reveal>
+          <div class="testimonial-quote">"</div>
+          <p data-i18n="testimonial_2">فريق محترف وأخلاق عالية. تعلمت الكثير من اللاعبين هنا.</p>
+          <div class="testimonial-author">
+            <div class="ta-avatar" style="--ac: #d6a566;">K</div>
+            <div>
+              <strong>King</strong>
+              <span data-i18n="testimonial_2_date">عضو منذ 2021</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" data-reveal>
+          <div class="testimonial-quote">"</div>
+          <p data-i18n="testimonial_3">Calm Team ليس مجرد فريق، بل عائلة. فخور بكوني جزء من هالمسيرة.</p>
+          <div class="testimonial-author">
+            <div class="ta-avatar" style="--ac: #22c55e;">R</div>
+            <div>
+              <strong>Razer</strong>
+              <span data-i18n="testimonial_3_date">عضو منذ 2019</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-reveal data-i18n="contact_tag">تواصل</span>
+        <h2 class="section-title" data-reveal data-i18n="contact_title">ابق على اتصال</h2>
+        <div class="section-divider" data-reveal><span></span><i class="fas fa-envelope"></i><span></span></div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info" data-reveal>
+          <h3 data-i18n="contact_heading">تواصل معنا</h3>
+          <p data-i18n="contact_desc">تابعنا على وسائل التواصل وانضم إلى مجتمعنا المتنامي</p>
+          <div class="social-links">
+            <a href="https://discord.gg/Xp6svSBUH4" target="_blank" rel="noopener" class="social-link" style="--sc: #5865f2;"><i class="fab fa-discord"></i></a>
+            <a href="https://x.com/calmiraq?s=11" target="_blank" rel="noopener" class="social-link" style="--sc: #1da1f2;"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/calmiraq?igsh=NDBiZzYzeDJzaDNu&utm_source=qr" target="_blank" rel="noopener" class="social-link" style="--sc: #ff0050;"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/@calmcommunityiraq" target="_blank" rel="noopener" class="social-link" style="--sc: #ff0000;"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-link" style="--sc: #9146ff;"><i class="fab fa-twitch"></i></a>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm" data-reveal>
+          <div class="form-group">
+            <input type="text" placeholder="اسمك" required data-i18n-placeholder="form_name" />
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="form-group">
+            <input type="email" placeholder="بريدك الإلكتروني" required data-i18n-placeholder="form_email" />
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="form-group">
+            <textarea placeholder="رسالتك..." rows="4" required data-i18n-placeholder="form_message"></textarea>
+            <i class="fas fa-pen"></i>
+          </div>
+          <button type="submit" class="btn btn-primary magnetic">
+            <span data-i18n="form_submit">إرسال الرسالة</span>
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-particles"></div>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="assets/logo.png" alt="Calm Team" class="footer-logo" />
+          <h3>Calm Team</h3>
+          <p data-i18n="footer_desc">فريق هدوء — منذ 2018</p>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="footer_quick_title">روابط سريعة</h4>
+          <ul>
+            <li><a href="#about" data-i18n="footer_link_about">عن الفريق</a></li>
+            <li><a href="#roster" data-i18n="footer_link_roster">الفريق</a></li>
+            <li><a href="#community" data-i18n="footer_link_community">المجتمع</a></li>
+            <li><a href="#contact" data-i18n="footer_link_contact">اتصل بنا</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="footer_follow_title">تابعنا</h4>
+          <ul>
+            <li><a href="https://discord.gg/Xp6svSBUH4" target="_blank" rel="noopener">Discord</a></li>
+            <li><a href="https://x.com/calmiraq?s=11" target="_blank" rel="noopener">X</a></li>
+            <li><a href="https://www.instagram.com/calmiraq?igsh=NDBiZzYzeDJzaDNu&utm_source=qr" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://www.youtube.com/@calmcommunityiraq" target="_blank" rel="noopener">YouTube</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="footer_games_title">الألعاب</h4>
+          <ul>
+            <li><a href="#">VALORANT</a></li>
+            <li><a href="#">CS2</a></li>
+            <li><a href="#">R6 Siege</a></li>
+            <li><a href="#">FC</a></li>
+            <li><a href="#">PUBG</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n="footer_copy">&copy; 2026 Calm Team. كل الحقوق محفوظة.</p>
+        <p class="footer-made"><span data-i18n="footer_made">صنع بـ</span> <i class="fas fa-heart" style="color: #d6a566;"></i> <span data-i18n="footer_made_from">من Calm Community</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+    <svg class="btt-ring" viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="21" />
+    </svg>
+  </button>
+
+  <!-- Three.js (UMD build for file:// compatibility) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
