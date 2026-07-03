@@ -261,6 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update html lang and dir
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    localStorage.setItem('calm-lang', lang);
 
     // Update toggle button text
     const langToggle = document.getElementById('langToggle');
@@ -277,8 +278,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Set English as default
-  setLanguage('en');
+  // Set language from localStorage or default to English
+  const savedLang = localStorage.getItem('calm-lang') || 'en';
+  setLanguage(savedLang);
 
   // Language toggle
   const langToggle = document.getElementById('langToggle');

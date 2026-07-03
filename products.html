@@ -199,7 +199,53 @@
       100% { transform: translateY(100vh) scale(0); opacity: 0; }
     }
 
-    @keyframes productFloat {
+    /* Page transition overlay already in body */
+
+  /* Products toolbar */
+  .products-toolbar {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+  }
+
+  .products-toolbar button {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: var(--font-en);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s var(--ease);
+    line-height: 1.4;
+  }
+
+  .products-toolbar button:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    box-shadow: 0 0 20px var(--primary-glow);
+  }
+
+  .products-toolbar .theme-btn {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border-radius: 50%;
+  }
+
+  @keyframes productFloat {
       0%, 100% { transform: translateY(0) scale(1); }
       50% { transform: translateY(-18px) scale(1.05); }
     }
@@ -213,6 +259,10 @@
   <div class="cursor-trail" id="cursorTrail"></div>
 
   <div class="products-page">
+    <div class="products-toolbar" id="productsToolbar">
+      <button id="productsLangToggle">EN</button>
+      <button class="theme-btn" id="productsThemeToggle"><i class="fas fa-moon"></i></button>
+    </div>
     <div class="products-particles">
       <span></span><span></span><span></span><span></span>
       <span></span><span></span><span></span><span></span>
@@ -220,9 +270,9 @@
 
     <div class="products-container">
       <img src="assets/logo.png" alt="Calm Team" class="products-logo" loading="lazy" />
-      <h1 class="products-title" data-text="قريبا">قريبا</h1>
+      <h1 class="products-title" data-text="قريبا" data-i18n="products_title">قريبا</h1>
       <div class="products-bar-wrap"><div class="products-bar-fill"></div></div>
-      <p class="products-desc">
+      <p class="products-desc" data-i18n-html="products_desc">
          نعمل على إطلاق منتجات حصرية لفريق Calm Team<br />
         تيشيرتات — هوديز — إكسسوارات — وأكثر<br />
         <strong style="color: var(--primary);">ترقبوا!</strong>
@@ -230,12 +280,76 @@
       <div class="products-dots">
         <span></span><span></span><span></span>
       </div>
-      <a href="index.html" class="products-back"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
+      <a href="index.html" class="products-back"><i class="fas fa-arrow-right"></i> <span data-i18n="products_back">العودة للرئيسية</span></a>
     </div>
   </div>
 
 
 <script>
+  // =============================================
+  // SYNC THEME & LANGUAGE
+  // =============================================
+  const savedTheme = localStorage.getItem('calm-theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  document.documentElement.setAttribute('data-theme', savedTheme);
+
+  const productsTranslations = {
+    en: {
+      products_title: 'Coming Soon',
+      products_desc: 'We are launching exclusive products for Calm Team<br />T-shirts — Hoodies — Accessories — & More<br /><strong style="color: var(--primary);">Stay Tuned!</strong>',
+      products_back: 'Back to Home'
+    },
+    ar: {
+      products_title: 'قريبا',
+      products_desc: 'نعمل على إطلاق منتجات حصرية لفريق Calm Team<br />تيشيرتات — هوديز — إكسسوارات — وأكثر<br /><strong style="color: var(--primary);">ترقبوا!</strong>',
+      products_back: 'العودة للرئيسية'
+    }
+  };
+
+  let currentProductsLang = localStorage.getItem('calm-lang') || 'en';
+  document.documentElement.lang = currentProductsLang;
+  document.documentElement.dir = currentProductsLang === 'ar' ? 'rtl' : 'ltr';
+
+  function applyProductsLang(lang) {
+    currentProductsLang = lang;
+    const t = productsTranslations[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    localStorage.setItem('calm-lang', lang);
+    const btn = document.getElementById('productsLangToggle');
+    if (btn) btn.textContent = lang === 'en' ? 'AR' : 'EN';
+    // Update title data-text attr for glow effect
+    const title = document.querySelector('.products-title');
+    if (title) title.setAttribute('data-text', t.products_title);
+  }
+  applyProductsLang(currentProductsLang);
+
+  document.getElementById('productsLangToggle')?.addEventListener('click', () => {
+    applyProductsLang(currentProductsLang === 'en' ? 'ar' : 'en');
+  });
+
+  const themeBtn = document.getElementById('productsThemeToggle');
+  function applyProductsTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('calm-theme', theme);
+    if (themeBtn) themeBtn.innerHTML = theme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+  }
+  applyProductsTheme(savedTheme);
+  themeBtn?.addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme');
+    applyProductsTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+
+  // =============================================
+  // CURSOR
+  // =============================================
   const cursor = document.getElementById('cursor');
   const cursorTrail = document.getElementById('cursorTrail');
   if (cursor && cursorTrail && window.innerWidth > 768) {
