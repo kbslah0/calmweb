@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>منتجاتنا | Calm Team</title>
+  <title data-i18n="store_title">منتجاتنا | Calm Team</title>
   <meta name="description" content="Calm Team Products - متجر فريق هدوء الرسمي" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#d6a566" />
   <meta property="og:title" content="منتجاتنا | Calm Team" />
   <meta property="og:description" content="Calm Team Products - متجر فريق هدوء الرسمي" />
   <meta property="og:image" content="https://kbslah0.github.io/calmweb/assets/logo.png" />
@@ -17,134 +19,165 @@
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <style>
-    .products-page {
+    .store-page {
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       background: var(--bg);
       position: relative;
-      overflow: hidden;
+      padding: 100px 24px 60px;
     }
 
-    .products-page::before {
+    .store-page::before {
       content: '';
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(ellipse at 50% 50%, rgba(214,165,102,0.06), transparent 60%),
-        radial-gradient(ellipse at 80% 20%, rgba(214,165,102,0.04), transparent 40%),
-        radial-gradient(ellipse at 20% 80%, rgba(214,165,102,0.03), transparent 40%);
+      background: radial-gradient(ellipse at 50% 0%, rgba(214,165,102,0.04), transparent 60%);
       pointer-events: none;
     }
 
-    .products-logo {
-      display: block;
-      margin: 0 auto 48px;
-      width: 120px;
-      height: auto;
-      animation: productFloat 2.5s var(--ease) infinite;
-      filter: drop-shadow(0 0 40px var(--primary-glow));
-    }
-
-    .products-container {
-      text-align: center;
-      position: relative;
-      z-index: 1;
-      padding: 40px 24px;
-      animation: pageFadeIn 1s var(--ease) both;
-    }
-
-    @keyframes pageFadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-.products-title {
-      font-family: var(--font-en);
-      font-size: clamp(56px, 10vw, 120px);
-      font-weight: 700;
-      color: var(--primary);
-      letter-spacing: 16px;
-      text-shadow: 0 0 50px var(--primary-glow), 0 0 100px var(--primary-glow);
-      animation: titleGlow 2s var(--ease) infinite;
-      position: relative;
-      margin-bottom: 24px;
-    }
-
-    .products-title::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 0;
+    .store-toolbar {
+      position: fixed;
+      top: 24px;
       left: 50%;
       transform: translateX(-50%);
-      -webkit-text-stroke: 2px var(--primary);
-      color: transparent;
-      opacity: 0.12;
-      z-index: -1;
-      letter-spacing: 20px;
-    }
-
-    @keyframes titleGlow {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.04); opacity: 0.85; }
-    }
-
-    .products-bar-wrap {
-      width: 240px;
-      height: 3px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 4px;
-      overflow: hidden;
-      margin: 0 auto 28px;
-    }
-
-    .products-bar-fill {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, var(--primary-dark), var(--primary), var(--primary-light));
-      animation: barSweep 2s var(--ease) infinite;
-      transform-origin: left;
-    }
-
-    @keyframes barSweep {
-      0% { transform: scaleX(0); }
-      50% { transform: scaleX(1); }
-      100% { transform: scaleX(0); transform-origin: right; }
-    }
-
-    .products-desc {
-      font-size: 17px;
-      color: var(--text-muted);
-      max-width: 500px;
-      margin: 0 auto 36px;
-      line-height: 2;
-    }
-
-    .products-dots {
       display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 48px;
+      gap: 8px;
+      z-index: 100;
+      align-items: center;
     }
 
-    .products-dots span {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
+    .store-toolbar button {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: var(--font-en);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+      line-height: 1.4;
+    }
+
+    .store-toolbar button:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .store-toolbar .theme-btn {
+      width: 32px; height: 32px; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; border-radius: 50%;
+    }
+
+    .store-header {
+      text-align: center;
+      margin-bottom: 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .store-header .logo {
+      width: 80px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 30px var(--primary-glow));
+    }
+
+    .store-header h1 {
+      font-family: var(--font-en);
+      font-size: clamp(40px, 8vw, 80px);
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 8px;
+      text-shadow: 0 0 40px var(--primary-glow);
+    }
+
+    .store-header p {
+      color: var(--text-muted);
+      font-size: 16px;
+      margin-top: 8px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+      transition: all 0.4s var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .product-icon {
+      font-size: 56px;
+      margin-bottom: 16px;
+      color: var(--primary);
+    }
+
+    .product-card h3 {
+      font-size: 20px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .product-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .product-price {
+      font-family: var(--font-en);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .product-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 28px;
+      border-radius: 50px;
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      font-family: var(--font-ar);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s var(--ease);
+    }
+
+    .product-btn:hover {
       background: var(--primary);
-      animation: dotBounce 1.4s var(--ease) infinite;
+      color: #06060e;
+      box-shadow: 0 0 30px var(--primary-glow);
     }
 
-    .products-dots span:nth-child(2) { animation-delay: 0.2s; }
-    .products-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes dotBounce {
-      0%, 60%, 100% { transform: translateY(0); opacity: 0.3; }
-      30% { transform: translateY(-14px); opacity: 1; }
-    }
-
-    .products-back {
+    .store-back {
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -157,242 +190,234 @@
       color: var(--text-muted);
       border: 1px solid var(--border);
       transition: all 0.3s var(--ease);
+      margin-top: 60px;
     }
 
-    .products-back:hover {
+    .store-back:hover {
       color: var(--primary);
       border-color: var(--primary);
       transform: translateY(-3px);
       box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     }
 
-    .products-particles {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
+    .store-footer {
+      text-align: center;
+      margin-top: 40px;
     }
 
-    .products-particles span {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: var(--primary);
-      border-radius: 50%;
-      opacity: 0;
-      animation: particleFall 6s linear infinite;
-    }
-
-    .products-particles span:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 7s; }
-    .products-particles span:nth-child(2) { left: 25%; animation-delay: 1s; animation-duration: 5s; }
-    .products-particles span:nth-child(3) { left: 40%; animation-delay: 2s; animation-duration: 8s; }
-    .products-particles span:nth-child(4) { left: 55%; animation-delay: 0.5s; animation-duration: 6s; }
-    .products-particles span:nth-child(5) { left: 70%; animation-delay: 3s; animation-duration: 7s; }
-    .products-particles span:nth-child(6) { left: 85%; animation-delay: 1.5s; animation-duration: 5s; }
-    .products-particles span:nth-child(7) { left: 50%; animation-delay: 2.5s; animation-duration: 6s; }
-    .products-particles span:nth-child(8) { left: 15%; animation-delay: 4s; animation-duration: 8s; }
-
-    @keyframes particleFall {
-      0% { transform: translateY(-20px) scale(0); opacity: 0; }
-      20% { opacity: 0.6; transform: translateY(0) scale(1); }
-      80% { opacity: 0.6; }
-      100% { transform: translateY(100vh) scale(0); opacity: 0; }
-    }
-
-    /* Page transition overlay already in body */
-
-  /* Products toolbar */
-  .products-toolbar {
-    position: fixed;
-    top: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 100;
-  }
-
-  .products-toolbar button {
-    background: var(--glass);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    font-family: var(--font-en);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    padding: 6px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s var(--ease);
-    line-height: 1.4;
-  }
-
-  .products-toolbar button:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-    box-shadow: 0 0 20px var(--primary-glow);
-  }
-
-  .products-toolbar .theme-btn {
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    border-radius: 50%;
-  }
-
-  @keyframes productFloat {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-18px) scale(1.05); }
+    @media (max-width: 600px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .store-page { padding: 80px 16px 40px; }
     }
   </style>
 </head>
 <body>
 
   <div class="page-transition" id="pageTransition"></div>
-
   <div class="cursor" id="cursor"></div>
   <div class="cursor-trail" id="cursorTrail"></div>
 
-  <div class="products-page">
-    <div class="products-toolbar" id="productsToolbar">
-      <button id="productsLangToggle">EN</button>
-      <button class="theme-btn" id="productsThemeToggle"><i class="fas fa-moon"></i></button>
-    </div>
-    <div class="products-particles">
-      <span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span>
+  <div class="store-page">
+    <div class="store-toolbar" id="storeToolbar">
+      <button id="storeLangToggle">EN</button>
+      <button class="theme-btn" id="storeThemeToggle"><i class="fas fa-moon"></i></button>
     </div>
 
-    <div class="products-container">
-      <img src="assets/logo.png" alt="Calm Team" class="products-logo" loading="lazy" />
-      <h1 class="products-title" data-text="قريبا" data-i18n="products_title">قريبا</h1>
-      <div class="products-bar-wrap"><div class="products-bar-fill"></div></div>
-      <p class="products-desc" data-i18n-html="products_desc">
-         نعمل على إطلاق منتجات حصرية لفريق Calm Team<br />
-        تيشيرتات — هوديز — إكسسوارات — وأكثر<br />
-        <strong style="color: var(--primary);">ترقبوا!</strong>
-      </p>
-      <div class="products-dots">
-        <span></span><span></span><span></span>
-      </div>
-      <a href="index.html" class="products-back"><i class="fas fa-arrow-right"></i> <span data-i18n="products_back">العودة للرئيسية</span></a>
+    <div class="store-header">
+      <img src="assets/logo.png" alt="Calm Team" class="logo" />
+      <h1 data-i18n="store_heading">Calm Team Store</h1>
+      <p data-i18n="store_sub">المنتجات الرسمية لفريق هدوء</p>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+      <!-- Products injected by JS -->
+    </div>
+
+    <div class="store-footer">
+      <a href="index.html" class="store-back"><i class="fas fa-arrow-right"></i> <span data-i18n="store_back">العودة للرئيسية</span></a>
     </div>
   </div>
 
+  <script>
+    // =============================================
+    // SYNC THEME & LANGUAGE
+    // =============================================
+    const savedTheme = localStorage.getItem('calm-theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', savedTheme);
 
-<script>
-  // =============================================
-  // SYNC THEME & LANGUAGE
-  // =============================================
-  const savedTheme = localStorage.getItem('calm-theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-  document.documentElement.setAttribute('data-theme', savedTheme);
+    const currentProductsLang = localStorage.getItem('calm-lang') || 'en';
+    document.documentElement.lang = currentProductsLang;
+    document.documentElement.dir = currentProductsLang === 'ar' ? 'rtl' : 'ltr';
 
-  const productsTranslations = {
-    en: {
-      products_title: 'Coming Soon',
-      products_desc: 'We are launching exclusive products for Calm Team<br />T-shirts — Hoodies — Accessories — & More<br /><strong style="color: var(--primary);">Stay Tuned!</strong>',
-      products_back: 'Back to Home'
-    },
-    ar: {
-      products_title: 'قريبا',
-      products_desc: 'نعمل على إطلاق منتجات حصرية لفريق Calm Team<br />تيشيرتات — هوديز — إكسسوارات — وأكثر<br /><strong style="color: var(--primary);">ترقبوا!</strong>',
-      products_back: 'العودة للرئيسية'
+    const productsData = [
+      { icon: 'fa-solid fa-shirt', priceEn: '$29', priceAr: '29$' },
+      { icon: 'fa-solid fa-hoodie', priceEn: '$49', priceAr: '49$' },
+      { icon: 'fa-solid fa-hat-cowboy', priceEn: '$19', priceAr: '19$' },
+      { icon: 'fa-solid fa-mug-hot', priceEn: '$15', priceAr: '15$' },
+      { icon: 'fa-solid fa-computer-mouse', priceEn: '$12', priceAr: '12$' },
+      { icon: 'fa-solid fa-sticker', priceEn: '$5', priceAr: '5$' }
+    ];
+
+    const storeTranslations = {
+      en: {
+        store_title: 'Store | Calm Team',
+        store_heading: 'Calm Team Store',
+        store_sub: 'Official Calm Team merchandise',
+        store_back: 'Back to Home',
+        prod_1_name: 'Calm T-Shirt',
+        prod_1_desc: 'Premium quality t-shirt with Calm Team logo',
+        prod_2_name: 'Calm Hoodie',
+        prod_2_desc: 'Comfortable hoodie for the true fans',
+        prod_3_name: 'Calm Cap',
+        prod_3_desc: 'Stylish cap with embroidered logo',
+        prod_4_name: 'Calm Mug',
+        prod_4_desc: 'Start your day with Calm coffee',
+        prod_5_name: 'Calm Mousepad',
+        prod_5_desc: 'Pro gaming mousepad with Calm design',
+        prod_6_name: 'Calm Sticker Pack',
+        prod_6_desc: 'Set of 10 stickers for your gear',
+        buy_btn: 'Buy Now'
+      },
+      ar: {
+        store_title: 'منتجاتنا | Calm Team',
+        store_heading: 'Calm Team Store',
+        store_sub: 'المنتجات الرسمية لفريق هدوء',
+        store_back: 'العودة للرئيسية',
+        prod_1_name: 'تيشيرت Calm',
+        prod_1_desc: 'تيشيرت جودة عالية بشعار الفريق',
+        prod_2_name: 'هودي Calm',
+        prod_2_desc: 'هودي مريح للجماهير الحقيقية',
+        prod_3_name: 'كاب Calm',
+        prod_3_desc: 'كاب أنيق بتطريز الشعار',
+        prod_4_name: 'كوب Calm',
+        prod_4_desc: 'ابدأ يومك مع قهوة هدوء',
+        prod_5_name: 'ماوس باد Calm',
+        prod_5_desc: 'ماوس باد احترافي بتصميم كالم',
+        prod_6_name: 'باقة ستيكرات Calm',
+        prod_6_desc: 'مجموعة 10 ستيكرات لأجهزتك',
+        buy_btn: 'اشتري الآن'
+      }
+    };
+
+    function renderProducts(lang) {
+      const t = storeTranslations[lang];
+      const grid = document.getElementById('productsGrid');
+      if (!grid) return;
+      grid.innerHTML = productsData.map((p, i) => `
+        <div class="product-card" data-reveal>
+          <div class="product-icon"><i class="${p.icon}"></i></div>
+          <h3>${t['prod_' + (i+1) + '_name']}</h3>
+          <p>${t['prod_' + (i+1) + '_desc']}</p>
+          <div class="product-price">${lang === 'en' ? p.priceEn : p.priceAr}</div>
+          <a href="#" class="product-btn" data-i18n="${'buy_btn'}">${t.buy_btn} <i class="fas fa-shopping-cart"></i></a>
+        </div>
+      `).join('');
     }
-  };
 
-  let currentProductsLang = localStorage.getItem('calm-lang') || 'en';
-  document.documentElement.lang = currentProductsLang;
-  document.documentElement.dir = currentProductsLang === 'ar' ? 'rtl' : 'ltr';
-
-  function applyProductsLang(lang) {
-    currentProductsLang = lang;
-    const t = productsTranslations[lang];
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (t[key] !== undefined) el.textContent = t[key];
-    });
-    document.querySelectorAll('[data-i18n-html]').forEach(el => {
-      const key = el.getAttribute('data-i18n-html');
-      if (t[key] !== undefined) el.innerHTML = t[key];
-    });
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    localStorage.setItem('calm-lang', lang);
-    const btn = document.getElementById('productsLangToggle');
-    if (btn) btn.textContent = lang === 'en' ? 'AR' : 'EN';
-    // Update title data-text attr for glow effect
-    const title = document.querySelector('.products-title');
-    if (title) title.setAttribute('data-text', t.products_title);
-  }
-  applyProductsLang(currentProductsLang);
-
-  document.getElementById('productsLangToggle')?.addEventListener('click', () => {
-    applyProductsLang(currentProductsLang === 'en' ? 'ar' : 'en');
-  });
-
-  const themeBtn = document.getElementById('productsThemeToggle');
-  function applyProductsTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('calm-theme', theme);
-    if (themeBtn) themeBtn.innerHTML = theme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
-  }
-  applyProductsTheme(savedTheme);
-  themeBtn?.addEventListener('click', () => {
-    const cur = document.documentElement.getAttribute('data-theme');
-    applyProductsTheme(cur === 'dark' ? 'light' : 'dark');
-  });
-
-  // =============================================
-  // CURSOR
-  // =============================================
-  const cursor = document.getElementById('cursor');
-  const cursorTrail = document.getElementById('cursorTrail');
-  if (cursor && cursorTrail && window.innerWidth > 768) {
-    let trailX = 0, trailY = 0;
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      trailX = e.clientX; trailY = e.clientY;
-    });
-    let tX = 0, tY = 0;
-    function updateTrail() {
-      tX += (trailX - tX) * 0.08;
-      tY += (trailY - tY) * 0.08;
-      cursorTrail.style.left = tX + 'px';
-      cursorTrail.style.top = tY + 'px';
-      requestAnimationFrame(updateTrail);
-    }
-    updateTrail();
-    const targets = document.querySelectorAll('a, button, .products-logo, .products-title, .products-back');
-    targets.forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
-    document.addEventListener('mousedown', () => cursor.style.transform = 'translate(-50%, -50%) scale(0.8)');
-    document.addEventListener('mouseup', () => cursor.style.transform = 'translate(-50%, -50%) scale(1)');
-  } else if (cursor && cursorTrail) {
-    cursor.style.display = 'none';
-    cursorTrail.style.display = 'none';
-  }
-
-  // Page transition
-  const transOverlay = document.getElementById('pageTransition');
-  if (transOverlay) {
-    document.querySelectorAll('a[href$=".html"]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const href = link.getAttribute('href');
-        transOverlay.classList.add('active');
-        setTimeout(() => { window.location.href = href; }, 350);
+    function applyStoreLang(lang) {
+      renderProducts(lang);
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (storeTranslations[lang][key] !== undefined) el.textContent = storeTranslations[lang][key];
       });
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      localStorage.setItem('calm-lang', lang);
+      const btn = document.getElementById('storeLangToggle');
+      if (btn) btn.textContent = lang === 'en' ? 'AR' : 'EN';
+    }
+    applyStoreLang(currentProductsLang);
+
+    document.getElementById('storeLangToggle')?.addEventListener('click', () => {
+      const newLang = localStorage.getItem('calm-lang') === 'en' ? 'ar' : 'en';
+      applyStoreLang(newLang);
     });
-    window.addEventListener('pageshow', () => transOverlay.classList.remove('active'));
-  }
-</script>
+
+    const themeBtn = document.getElementById('storeThemeToggle');
+    function applyStoreTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('calm-theme', theme);
+      if (themeBtn) themeBtn.innerHTML = theme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+    }
+    applyStoreTheme(savedTheme);
+    themeBtn?.addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme');
+      applyStoreTheme(cur === 'dark' ? 'light' : 'dark');
+    });
+
+    // =============================================
+    // CURSOR
+    // =============================================
+    const cursor = document.getElementById('cursor');
+    const cursorTrail = document.getElementById('cursorTrail');
+    if (cursor && cursorTrail && window.innerWidth > 768) {
+      let trailX = 0, trailY = 0;
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        trailX = e.clientX; trailY = e.clientY;
+      });
+      let tX = 0, tY = 0;
+      function updateTrail() {
+        tX += (trailX - tX) * 0.08;
+        tY += (trailY - tY) * 0.08;
+        cursorTrail.style.left = tX + 'px';
+        cursorTrail.style.top = tY + 'px';
+        requestAnimationFrame(updateTrail);
+      }
+      updateTrail();
+      const targets = document.querySelectorAll('a, button, .product-card');
+      targets.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      });
+      document.addEventListener('mousedown', () => cursor.style.transform = 'translate(-50%, -50%) scale(0.8)');
+      document.addEventListener('mouseup', () => cursor.style.transform = 'translate(-50%, -50%) scale(1)');
+    } else if (cursor && cursorTrail) {
+      cursor.style.display = 'none';
+      cursorTrail.style.display = 'none';
+    }
+
+    // Page transition
+    const transOverlay = document.getElementById('pageTransition');
+    if (transOverlay) {
+      document.querySelectorAll('a[href$=".html"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const href = link.getAttribute('href');
+          transOverlay.classList.add('active');
+          setTimeout(() => { window.location.href = href; }, 350);
+        });
+      });
+      window.addEventListener('pageshow', () => transOverlay.classList.remove('active'));
+    }
+
+    // Reveal observer for product cards
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <!-- PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  </script>
 </body>
 </html>

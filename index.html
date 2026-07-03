@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#d6a566" />
   <meta property="og:title" content="Calm Team — فريق هدوء" />
   <meta property="og:description" content="Calm Team Esport & Community — فريق هدوء للرياضات الإلكترونية منذ 2018" />
   <meta property="og:image" content="https://kbslah0.github.io/calmweb/assets/logo.png" />
@@ -597,6 +599,43 @@
     </div>
   </section>
 
+  <!-- Blog -->
+  <section class="section blog" id="blog">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-reveal data-i18n="blog_tag">آخر الأخبار</span>
+        <h2 class="section-title" data-reveal data-i18n="blog_title">أخبار الفريق</h2>
+        <div class="section-divider" data-reveal><span></span><i class="fas fa-newspaper"></i><span></span></div>
+      </div>
+      <div class="blog-grid">
+        <div class="blog-card" data-reveal>
+          <div class="blog-img"><i class="fas fa-trophy"></i></div>
+          <div class="blog-body">
+            <span class="blog-date">2025</span>
+            <h3 data-i18n="blog_1_title">100+ عضو في مجتمعنا</h3>
+            <p data-i18n="blog_1_desc">مجتمع كالم يتخطى حاجز 100 عضو بفضل دعمكم المستمر</p>
+          </div>
+        </div>
+        <div class="blog-card" data-reveal>
+          <div class="blog-img"><i class="fas fa-gamepad"></i></div>
+          <div class="blog-body">
+            <span class="blog-date">2024</span>
+            <h3 data-i18n="blog_2_title">بطولة جديدة</h3>
+            <p data-i18n="blog_2_desc">الفريق يستعد للمشاركة في بطولة كبرى نهاية الموسم</p>
+          </div>
+        </div>
+        <div class="blog-card" data-reveal>
+          <div class="blog-img"><i class="fas fa-handshake"></i></div>
+          <div class="blog-body">
+            <span class="blog-date">2024</span>
+            <h3 data-i18n="blog_3_title">شراكة جديدة</h3>
+            <p data-i18n="blog_3_desc">عقد شراكة مع علامة تجارية رائدة في عالم الأجهزة</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Testimonials -->
   <section class="section testimonials" id="testimonials">
     <div class="container">
@@ -742,7 +781,23 @@
     </svg>
   </button>
 
-  <!-- Three.js (UMD build for file:// compatibility) -->
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <!-- PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  </script>
+
+  <!-- Three.js -->
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script defer src="js/main.js"></script>
 </body>

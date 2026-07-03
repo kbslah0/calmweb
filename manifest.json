@@ -1,0 +1,23 @@
+{
+  "name": "Calm Team — فريق هدوء",
+  "short_name": "Calm Team",
+  "description": "Calm Team Esport & Community — فريق هدوء للرياضات الإلكترونية",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0a0a16",
+  "theme_color": "#d6a566",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

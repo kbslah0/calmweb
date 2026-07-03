@@ -113,7 +113,15 @@ document.addEventListener('DOMContentLoaded', () => {
       discord_msg_1: 'Welcome everyone to Calm Community! 🎮',
       discord_msg_2: 'Proud to be part of this family!',
       discord_msg_3: 'Today\'s tournament was EPIC! 🔥',
-      discord_active: 'Active'
+      discord_active: 'Active',
+      blog_tag: 'Latest News',
+      blog_title: 'Team News',
+      blog_1_title: '100+ Members in Our Community',
+      blog_1_desc: 'Calm Community surpasses 100 members thanks to your continuous support',
+      blog_2_title: 'New Tournament',
+      blog_2_desc: 'The team prepares for a major tournament at the end of the season',
+      blog_3_title: 'New Partnership',
+      blog_3_desc: 'Partnership agreement with a leading brand in the hardware industry'
     },
     ar: {
       nav_home: 'الرئيسية',
@@ -207,7 +215,15 @@ document.addEventListener('DOMContentLoaded', () => {
       discord_msg_1: 'مرحبًا بالجميع في مجتمع كالم! 🎮',
       discord_msg_2: 'فخور إني جزء من هالعائلة!',
       discord_msg_3: 'بطولة اليوم كانت EPIC! 🔥',
-      discord_active: 'نشيط'
+      discord_active: 'نشيط',
+      blog_tag: 'آخر الأخبار',
+      blog_title: 'أخبار الفريق',
+      blog_1_title: '100+ عضو في مجتمعنا',
+      blog_1_desc: 'مجتمع كالم يتخطى حاجز 100 عضو بفضل دعمكم المستمر',
+      blog_2_title: 'بطولة جديدة',
+      blog_2_desc: 'الفريق يستعد للمشاركة في بطولة كبرى نهاية الموسم',
+      blog_3_title: 'شراكة جديدة',
+      blog_3_desc: 'عقد شراكة مع علامة تجارية رائدة في عالم الأجهزة'
     }
   };
 
@@ -809,6 +825,25 @@ document.addEventListener('DOMContentLoaded', () => {
       typingMsg.style.opacity = '0';
       setTimeout(() => typingMsg.style.opacity = '1', 300);
     }, 3000);
+  }
+
+  // Fetch real Discord online count
+  const discordOnlineEl = document.querySelector('.discord-online');
+  const discordMemberEl = document.querySelector('.discord-footer span:first-child');
+  if (discordOnlineEl || discordMemberEl) {
+    fetch('https://discord.com/api/v10/invites/Xp6svSBUH4?with_counts=true')
+      .then(r => r.json())
+      .then(data => {
+        const online = data.approximate_presence_count;
+        const members = data.approximate_member_count;
+        if (discordOnlineEl && online !== undefined) {
+          discordOnlineEl.textContent = '● ' + online + ' online';
+        }
+        if (discordMemberEl && members !== undefined) {
+          discordMemberEl.innerHTML = '<i class="fas fa-user"></i> ' + members + '+';
+        }
+      })
+      .catch(() => {});
   }
 
   // =============================================
