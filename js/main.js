@@ -109,7 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
       footer_games_title: 'Games',
       footer_copy: '&copy; 2026 Calm Team. All rights reserved.',
       footer_made: 'Made with',
-      footer_made_from: 'by Calm Community'
+      footer_made_from: 'by Calm Community',
+      discord_msg_1: 'Welcome everyone to Calm Community! 🎮',
+      discord_msg_2: 'Proud to be part of this family!',
+      discord_msg_3: 'Today\'s tournament was EPIC! 🔥',
+      discord_active: 'Active'
     },
     ar: {
       nav_home: 'الرئيسية',
@@ -199,7 +203,11 @@ document.addEventListener('DOMContentLoaded', () => {
       footer_games_title: 'الألعاب',
       footer_copy: '&copy; 2026 Calm Team. كل الحقوق محفوظة.',
       footer_made: 'صنع بـ',
-      footer_made_from: 'من Calm Community'
+      footer_made_from: 'من Calm Community',
+      discord_msg_1: 'مرحبًا بالجميع في مجتمع كالم! 🎮',
+      discord_msg_2: 'فخور إني جزء من هالعائلة!',
+      discord_msg_3: 'بطولة اليوم كانت EPIC! 🔥',
+      discord_active: 'نشيط'
     }
   };
 
