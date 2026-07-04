@@ -313,6 +313,10 @@
     .empty-state i { font-size: 48px; margin-bottom: 16px; opacity: 0.4; }
     .empty-state p { font-size: 15px; }
 
+    /* Override custom cursor from main style */
+    body { cursor: auto; }
+    img, a, button, input, textarea, select { cursor: auto; }
+
     @media (max-width: 768px) {
       .admin-sidebar { width: 60px; }
       .admin-sidebar h2,
@@ -348,7 +352,10 @@
         <p class="subtitle">أضف، عدل، أو احذف لاعبي الفريق</p>
         <div class="toolbar">
           <h2>قائمة اللاعبين</h2>
-          <button class="btn-add" onclick="openModal('player')"><i class="fas fa-plus"></i> إضافة لاعب</button>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <a href="seed-data.html" class="btn-add" style="background:transparent;border:1px solid var(--border);color:var(--text-muted);text-decoration:none;font-size:13px"><i class="fas fa-seedling"></i> ترحيل البيانات</a>
+            <button class="btn-add" onclick="openModal('player')"><i class="fas fa-plus"></i> إضافة لاعب</button>
+          </div>
         </div>
         <div class="table-wrap">
           <table>

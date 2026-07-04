@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seed Data — Calm Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #0a0a14;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+    .seed-card {
+      background: #12121e;
+      border: 1px solid #2a2a3e;
+      border-radius: 16px;
+      padding: 40px;
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+    }
+    .seed-card h1 { font-size: 24px; margin-bottom: 8px; color: #d6a566; }
+    .seed-card p { color: #888; font-size: 14px; margin-bottom: 24px; line-height: 1.8; }
+    .seed-btn {
+      padding: 14px 32px;
+      background: #d6a566;
+      border: none;
+      border-radius: 10px;
+      color: #06060e;
+      font-family: 'Cairo', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: block;
+      width: 100%;
+    }
+    .seed-btn:hover { box-shadow: 0 0 30px rgba(214, 165, 102, 0.4); transform: translateY(-2px); }
+    .seed-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+    .seed-log {
+      background: #0a0a14;
+      border: 1px solid #2a2a3e;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 20px;
+      font-size: 13px;
+      text-align: left;
+      direction: ltr;
+      max-height: 200px;
+      overflow-y: auto;
+      color: #aaa;
+      line-height: 1.6;
+    }
+    .seed-log .ok { color: #22c55e; }
+    .seed-log .err { color: #ef4444; }
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #666;
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.3s;
+    }
+    .back-link:hover { color: #d6a566; }
+  </style>
+</head>
+<body>
+  <div class="seed-card">
+    <h1>🌱 Seed Database</h1>
+    <p>اكتب البيانات الحالية (اللاعبين + الأخبار) من الموقع الرئيسي<br />إلى Firestore عشان تظهر بلوحة التحكم</p>
+    <button class="seed-btn" id="seedBtn">🚀 ابدء الترحيل</button>
+    <div class="seed-log" id="seedLog">بانتظار الضغط على الزر...</div>
+    <a href="dashboard.html" class="back-link">← العودة للوحة التحكم</a>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script>
+    const seedBtn = document.getElementById('seedBtn');
+    const seedLog = document.getElementById('seedLog');
+
+    function log(msg, type = '') {
+      seedLog.innerHTML += `<div class="${type}">${msg}</div>`;
+      seedLog.scrollTop = seedLog.scrollHeight;
+    }
+
+    const players = [
+      { name: 'Dr.T', role: 'Captain / IGL', games: ['VALORANT', 'CS2'] },
+      { name: 'Omega', role: 'Entry Fragger', games: ['VALORANT', 'CS2'] },
+      { name: 'Side', role: 'Support', games: ['VALORANT', 'R6'] },
+      { name: 'Esc', role: 'AWPer / Sniper', games: ['CS2', 'VALORANT'] },
+      { name: 'Altikriti', role: 'Flex', games: ['VALORANT', 'CS2'] },
+      { name: 'Hotoo', role: 'Entry Fragger', games: ['VALORANT', 'CS2'] },
+      { name: 'AydinR1k', role: 'Support', games: ['VALORANT', 'R6'] },
+      { name: 'G5o6d', role: 'Flex', games: ['VALORANT', 'CS2'] },
+      { name: 'Abo_almktab', role: 'Substitute', games: ['VALORANT', 'CS2'] },
+      { name: 'jnon77', role: 'Substitute', games: ['VALORANT', 'CS2'] }
+    ];
+
+    const blog = [
+      { title: '100+ Members in Our Community', desc: 'Calm Community surpasses 100 members thanks to your continuous support', date: '2026' },
+      { title: 'New Tournament', desc: 'The team prepares for a major tournament at the end of the season', date: '2026' },
+      { title: 'New Partnership', desc: 'Partnership agreement with a leading brand in the hardware industry', date: '2026' }
+    ];
+
+    seedBtn.addEventListener('click', async () => {
+      seedBtn.disabled = true;
+      seedBtn.textContent = 'جاري الترحيل...';
+      seedLog.innerHTML = '';
+
+      try {
+        // Seed players
+        log(`⏳ جاري ترحيل ${players.length} لاعب...`);
+        for (const p of players) {
+          await db.collection('players').add(p);
+          log(`✅ ${p.name}`, 'ok');
+        }
+
+        // Seed blog
+        log(`⏳ جاري ترحيل ${blog.length} خبر...`);
+        for (const b of blog) {
+          await db.collection('blog').add(b);
+          log(`✅ ${b.title}`, 'ok');
+        }
+
+        log(`\n🎉 تم الترحيل بنجاح! راجع لوحة التحكم`, 'ok');
+        seedBtn.textContent = '✅ تمت المهمة';
+      } catch (err) {
+        log(`❌ خطأ: ${err.message}`, 'err');
+        seedBtn.disabled = false;
+        seedBtn.textContent ='🚀 إعادة المحاولة';
+      }
+    });
+  </script>
+</body>
+</html>
