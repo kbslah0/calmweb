@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — Calm Team</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--text); }
+
+    .admin-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .admin-sidebar {
+      width: 240px;
+      background: var(--bg-alt);
+      border-left: 1px solid var(--border);
+      padding: 24px 0;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      z-index: 100;
+    }
+
+    .admin-sidebar .logo {
+      width: 48px;
+      margin: 0 auto 8px;
+    }
+
+    .admin-sidebar h2 {
+      font-family: 'Teko', sans-serif;
+      font-size: 22px;
+      text-align: center;
+      color: var(--primary);
+      letter-spacing: 3px;
+      margin-bottom: 32px;
+    }
+
+    .admin-nav {
+      list-style: none;
+      flex: 1;
+    }
+
+    .admin-nav li {
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 15px;
+      font-weight: 600;
+      border-right: 3px solid transparent;
+    }
+
+    .admin-nav li:hover {
+      color: var(--text);
+      background: var(--bg-card);
+    }
+
+    .admin-nav li.active {
+      color: var(--primary);
+      border-right-color: var(--primary);
+      background: var(--bg-card);
+    }
+
+    .admin-nav li i { width: 20px; text-align: center; font-size: 16px; }
+
+    .admin-logout {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .admin-logout:hover { color: #ef4444; }
+
+    /* Main */
+    .admin-main {
+      margin-right: 240px;
+      flex: 1;
+      padding: 32px;
+      min-height: 100vh;
+    }
+
+    .admin-main h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .admin-main .subtitle {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    /* Tabs Content */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Toolbar */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar h2 { font-size: 20px; }
+
+    .btn-add {
+      padding: 10px 24px;
+      background: var(--primary);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: #06060e;
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+    }
+
+    .btn-add:hover { box-shadow: 0 0 20px var(--primary-glow); transform: translateY(-2px); }
+
+    .btn-sm {
+      padding: 6px 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: 'Cairo', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-sm:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-sm.danger:hover { border-color: #ef4444; color: #ef4444; }
+
+    /* Table */
+    .table-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: right;
+      padding: 16px 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-alt);
+    }
+
+    td {
+      padding: 14px 20px;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    td .actions { display: flex; gap: 8px; }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-overlay.visible { display: flex; }
+
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal h2 { margin-bottom: 24px; font-size: 20px; }
+
+    .modal .form-group {
+      margin-bottom: 16px;
+    }
+
+    .modal .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .modal .form-group input,
+    .modal .form-group textarea,
+    .modal .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+    }
+
+    .modal .form-group input:focus,
+    .modal .form-group textarea:focus,
+    .modal .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .modal .form-group textarea { resize: vertical; min-height: 80px; }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .modal-actions button {
+      flex: 1;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .modal-actions .btn-save {
+      background: var(--primary);
+      border: none;
+      color: #06060e;
+    }
+
+    .modal-actions .btn-save:hover { box-shadow: 0 0 20px var(--primary-glow); }
+
+    .modal-actions .btn-cancel {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .modal-actions .btn-cancel:hover { border-color: var(--text-muted); }
+
+    /* Tags */
+    .games-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .games-tags span {
+      padding: 2px 10px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 60px 24px;
+      color: var(--text-muted);
+    }
+
+    .empty-state i { font-size: 48px; margin-bottom: 16px; opacity: 0.4; }
+    .empty-state p { font-size: 15px; }
+
+    @media (max-width: 768px) {
+      .admin-sidebar { width: 60px; }
+      .admin-sidebar h2,
+      .admin-sidebar .admin-nav li span,
+      .admin-sidebar .admin-logout span { display: none; }
+      .admin-main { margin-right: 60px; padding: 16px; }
+      .admin-nav li { padding: 14px; justify-content: center; }
+      .admin-logout { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <img src="../assets/logo.png" alt="Calm" class="logo" />
+      <h2>CALM</h2>
+      <ul class="admin-nav">
+        <li class="active" data-tab="players"><i class="fas fa-users"></i><span>اللاعبين</span></li>
+        <li data-tab="products"><i class="fas fa-box"></i><span>المنتجات</span></li>
+        <li data-tab="blog"><i class="fas fa-newspaper"></i><span>الأخبار</span></li>
+      </ul>
+      <div class="admin-logout" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i><span>تسجيل الخروج</span>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="admin-main">
+      <!-- Players Tab -->
+      <div class="tab-content active" id="tab-players">
+        <h1>إدارة اللاعبين</h1>
+        <p class="subtitle">أضف، عدل، أو احذف لاعبي الفريق</p>
+        <div class="toolbar">
+          <h2>قائمة اللاعبين</h2>
+          <button class="btn-add" onclick="openModal('player')"><i class="fas fa-plus"></i> إضافة لاعب</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>الاسم</th>
+                <th>الدور</th>
+                <th>الألعاب</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="playersTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Products Tab -->
+      <div class="tab-content" id="tab-products">
+        <h1>إدارة المنتجات</h1>
+        <p class="subtitle">أضف، عدل، أو احذف منتجات المتجر</p>
+        <div class="toolbar">
+          <h2>قائمة المنتجات</h2>
+          <button class="btn-add" onclick="openModal('product')"><i class="fas fa-plus"></i> إضافة منتج</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>المنتج</th>
+                <th>السعر</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="productsTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Blog Tab -->
+      <div class="tab-content" id="tab-blog">
+        <h1>إدارة الأخبار</h1>
+        <p class="subtitle">أضف، عدل، أو احذف أخبار الفريق</p>
+        <div class="toolbar">
+          <h2>قائمة الأخبار</h2>
+          <button class="btn-add" onclick="openModal('blog')"><i class="fas fa-plus"></i> إضافة خبر</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>العنوان</th>
+                <th>التاريخ</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="blogTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h2 id="modalTitle">إضافة</h2>
+      <form id="modalForm">
+        <div id="modalFields"></div>
+        <div class="modal-actions">
+          <button type="submit" class="btn-save" id="modalSave">حفظ</button>
+          <button type="button" class="btn-cancel" onclick="closeModal()">إلغاء</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script>
+    // =============================================
+    // AUTH CHECK
+    // =============================================
+    auth.onAuthStateChanged(user => {
+      if (!user) window.location.href = 'login.html';
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await auth.signOut();
+      window.location.href = 'login.html';
+    });
+
+    // =============================================
+    // TABS
+    // =============================================
+    const tabs = document.querySelectorAll('.admin-nav li');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // =============================================
+    // CRUD STATE
+    // =============================================
+    let currentCollection = '';
+    let editingId = null;
+
+    // =============================================
+    // PLAYERS
+    // =============================================
+    function renderPlayers(snapshot) {
+      const tbody = document.getElementById('playersTable');
+      const data = snapshot.docs;
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4"><div class="empty-state"><i class="fas fa-users"></i><p>لا يوجد لاعبين بعد</p></div></td></tr>';
+        return;
+      }
+      tbody.innerHTML = data.map(doc => {
+        const p = doc.data();
+        return `<tr>
+          <td><strong>${p.name}</strong></td>
+          <td>${p.role || '-'}</td>
+          <td><div class="games-tags">${(p.games || []).map(g => `<span>${g}</span>`).join('')}</div></td>
+          <td><div class="actions">
+            <button class="btn-sm" onclick='editDoc("players","${doc.id}")'><i class="fas fa-edit"></i></button>
+            <button class="btn-sm danger" onclick='deleteDoc("players","${doc.id}")'><i class="fas fa-trash"></i></button>
+          </div></td>
+        </tr>`;
+      }).join('');
+    }
+
+    // =============================================
+    // PRODUCTS
+    // =============================================
+    function renderProducts(snapshot) {
+      const tbody = document.getElementById('productsTable');
+      const data = snapshot.docs;
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3"><div class="empty-state"><i class="fas fa-box"></i><p>لا يوجد منتجات بعد</p></div></td></tr>';
+        return;
+      }
+      tbody.innerHTML = data.map(doc => {
+        const p = doc.data();
+        return `<tr>
+          <td><strong>${p.name}</strong></td>
+          <td>${p.price || '-'}</td>
+          <td><div class="actions">
+            <button class="btn-sm" onclick='editDoc("products","${doc.id}")'><i class="fas fa-edit"></i></button>
+            <button class="btn-sm danger" onclick='deleteDoc("products","${doc.id}")'><i class="fas fa-trash"></i></button>
+          </div></td>
+        </tr>`;
+      }).join('');
+    }
+
+    // =============================================
+    // BLOG
+    // =============================================
+    function renderBlog(snapshot) {
+      const tbody = document.getElementById('blogTable');
+      const data = snapshot.docs;
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3"><div class="empty-state"><i class="fas fa-newspaper"></i><p>لا يوجد أخبار بعد</p></div></td></tr>';
+        return;
+      }
+      tbody.innerHTML = data.map(doc => {
+        const p = doc.data();
+        return `<tr>
+          <td><strong>${p.title}</strong></td>
+          <td>${p.date || '-'}</td>
+          <td><div class="actions">
+            <button class="btn-sm" onclick='editDoc("blog","${doc.id}")'><i class="fas fa-edit"></i></button>
+            <button class="btn-sm danger" onclick='deleteDoc("blog","${doc.id}")'><i class="fas fa-trash"></i></button>
+          </div></td>
+        </tr>`;
+      }).join('');
+    }
+
+    // =============================================
+    // FIRESTORE LISTENERS
+    // =============================================
+    db.collection('players').onSnapshot(renderPlayers);
+    db.collection('products').onSnapshot(renderProducts);
+    db.collection('blog').onSnapshot(renderBlog);
+
+    // =============================================
+    // MODAL
+    // =============================================
+    const overlay = document.getElementById('modalOverlay');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalFields = document.getElementById('modalFields');
+    const modalForm = document.getElementById('modalForm');
+    const modalSave = document.getElementById('modalSave');
+
+    function openModal(collection, id) {
+      currentCollection = collection;
+      editingId = id || null;
+      let fieldsHtml = '';
+      const labels = {
+        player: { title: 'لاعب', name: 'الاسم', role: 'الدور', games: 'الألعاب (مفصولة بفواصل)', aim: 'Aim %', team: 'Team %' },
+        product: { title: 'منتج', name: 'اسم المنتج', price: 'السعر', icon: 'الأيقونة', desc: 'الوصف' },
+        blog: { title: 'خبر', title2: 'عنوان الخبر', desc: 'الوصف', date: 'التاريخ' }
+      };
+
+      if (collection === 'player') {
+        modalTitle.textContent = editingId ? 'تعديل لاعب' : 'إضافة لاعب';
+        fieldsHtml = `
+          <div class="form-group"><label>الاسم</label><input id="f_name" required /></div>
+          <div class="form-group"><label>الدور (Captain, Entry, Support..)</label><input id="f_role" /></div>
+          <div class="form-group"><label>الألعاب (مفصولة بفواصل)</label><input id="f_games" placeholder="VALORANT, CS2, R6" /></div>
+          <div class="form-group"><label>Aim %</label><input id="f_aim" type="number" min="0" max="100" /></div>
+          <div class="form-group"><label>Team %</label><input id="f_team" type="number" min="0" max="100" /></div>
+        `;
+      } else if (collection === 'product') {
+        modalTitle.textContent = editingId ? 'تعديل منتج' : 'إضافة منتج';
+        fieldsHtml = `
+          <div class="form-group"><label>اسم المنتج</label><input id="f_name" required /></div>
+          <div class="form-group"><label>السعر</label><input id="f_price" placeholder="$29" /></div>
+          <div class="form-group"><label>أيقونة Font Awesome</label><input id="f_icon" placeholder="fa-solid fa-shirt" /></div>
+          <div class="form-group"><label>الوصف</label><textarea id="f_desc"></textarea></div>
+        `;
+      } else if (collection === 'blog') {
+        modalTitle.textContent = editingId ? 'تعديل خبر' : 'إضافة خبر';
+        fieldsHtml = `
+          <div class="form-group"><label>عنوان الخبر</label><input id="f_title" required /></div>
+          <div class="form-group"><label>الوصف</label><textarea id="f_desc"></textarea></div>
+          <div class="form-group"><label>التاريخ</label><input id="f_date" placeholder="2024" /></div>
+        `;
+      }
+
+      modalFields.innerHTML = fieldsHtml;
+      overlay.classList.add('visible');
+    }
+
+    function closeModal() {
+      overlay.classList.remove('visible');
+      editingId = null;
+      currentCollection = '';
+    }
+
+    // =============================================
+    // SAVE
+    // =============================================
+    modalForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      modalSave.disabled = true;
+      modalSave.textContent = 'جاري الحفظ...';
+
+      try {
+        let data = {};
+        if (currentCollection === 'player') {
+          data = {
+            name: document.getElementById('f_name').value,
+            role: document.getElementById('f_role').value || '',
+            games: document.getElementById('f_games').value.split(',').map(s => s.trim()).filter(Boolean),
+            aim: parseInt(document.getElementById('f_aim').value) || 0,
+            team: parseInt(document.getElementById('f_team').value) || 0
+          };
+        } else if (currentCollection === 'product') {
+          data = {
+            name: document.getElementById('f_name').value,
+            price: document.getElementById('f_price').value || '',
+            icon: document.getElementById('f_icon').value || 'fa-solid fa-box',
+            desc: document.getElementById('f_desc').value || ''
+          };
+        } else if (currentCollection === 'blog') {
+          data = {
+            title: document.getElementById('f_title').value,
+            desc: document.getElementById('f_desc').value || '',
+            date: document.getElementById('f_date').value || new Date().getFullYear().toString()
+          };
+        }
+
+        if (editingId) {
+          await db.collection(currentCollection).doc(editingId).update(data);
+        } else {
+          await db.collection(currentCollection).add(data);
+        }
+
+        closeModal();
+      } catch (err) {
+        alert('حدث خطأ: ' + err.message);
+      }
+
+      modalSave.disabled = false;
+      modalSave.textContent = 'حفظ';
+    });
+
+    // =============================================
+    // EDIT
+    // =============================================
+    async function editDoc(collection, id) {
+      openModal(collection, id);
+      try {
+        const doc = await db.collection(collection).doc(id).get();
+        const data = doc.data();
+        if (!data) return;
+
+        if (collection === 'player') {
+          document.getElementById('f_name').value = data.name || '';
+          document.getElementById('f_role').value = data.role || '';
+          document.getElementById('f_games').value = (data.games || []).join(', ');
+          document.getElementById('f_aim').value = data.aim || 0;
+          document.getElementById('f_team').value = data.team || 0;
+        } else if (collection === 'product') {
+          document.getElementById('f_name').value = data.name || '';
+          document.getElementById('f_price').value = data.price || '';
+          document.getElementById('f_icon').value = data.icon || '';
+          document.getElementById('f_desc').value = data.desc || '';
+        } else if (collection === 'blog') {
+          document.getElementById('f_title').value = data.title || '';
+          document.getElementById('f_desc').value = data.desc || '';
+          document.getElementById('f_date').value = data.date || '';
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // =============================================
+    // DELETE
+    // =============================================
+    async function deleteDoc(collection, id) {
+      if (!confirm('متأكد من الحذف؟')) return;
+      try {
+        await db.collection(collection).doc(id).delete();
+      } catch (err) {
+        alert('حدث خطأ: ' + err.message);
+      }
+    }
+
+    // Close modal on overlay click
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+  </script>
+</body>
+</html>
